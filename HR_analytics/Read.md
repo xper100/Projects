@@ -12,7 +12,7 @@
 # 데이터
 캐글의 데이터사이언티스트의 직업전환과 관련된 HR 데이터를 기반으로 프로젝트를 진행했습니다.
 
-[Kaggle] HR Analytics: Job Change of Data Scientists https://www.kaggle.com/arashnic/hr-analytics-job-change-of-data-scientists
+[Kaggle - HR Analytics: Job Change of Data Scientists](https://www.kaggle.com/arashnic/hr-analytics-job-change-of-data-scientists)
 
 훈련용 데이터 (Train): 26,500개 (3.3MB)
 
