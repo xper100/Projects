@@ -12,7 +12,7 @@
 
 * 데이터싸이언티스 직군을 희망하는 코드스테이츠 동기들을 위해 : [데이터직군 전향을 위한 주요요인 분석](https://github.com/xper100/Projects/tree/main/HR_analytics) [Python을 통한 머신러닝 및 시각화]
 
-* Stochastic Process Modeling과 회귀분석을 통한 수요예측 - Lenovo: [코로나 이후 제품별 수요예측]()
+* Stochastic Process Modeling과 회귀분석을 통한 수요예측 - Lenovo: [코로나 이후 제품별 수요예측](https://xper100.tistory.com/14)
  
 * 캡스톤 프로젝트 - HyVee: [재고데이터를 통한 재고과잉 20% 감소](https://xper100.tistory.com/3?category=922205) [첫 데이터분석 프로젝트, R, 연관분석]
 
