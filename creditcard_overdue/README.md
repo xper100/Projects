@@ -77,15 +77,21 @@ begin_month | 신용카드 발급 월 | 데이터 수집 당시 (0)부터 역으
 
 **특성** | **설명** | **특징**
 --- | --- | ---
-begin_month / begin_year | 신용카드 가입 후 기간 (월/년)  | 
-Month_birth / Wweeks_birth / Year_birth |  생일 (월/주/년)  | 
-Month_employed/ Weeks_employed /Year_employed | 고용 후 기간 (월/주/년)  | 
-before_employed_months / before_employed_weeks | 고용 전 기간 (월/주)  | 
-diff_employed_begin_year / diff_employed_begin_month | 고용 후 발급날짜와의 차이 (년/월) | 
+begin_month| 신용카드 가입 후 기간 (월)  | 
+begin_year | 신용카드 가입 후 기간 (년)  | 
+Month_birth  |  생일 (월)  | 
+Weeks_birth  |  생일 (주)  | 
+Year_birth |  생일 (년)  | 
+Month_employed | 고용 후 기간 (월)  | 
+Weeks_employed  | 고용 후 기간 (주)  | 
+Year_employed | 고용 후 기간 (년)  | 
+before_employed_months | 고용 전 기간 (월)  | 
+before_employed_weeks | 고용 전 기간 (주)  | 
+diff_employed_begin_year  | 고용 후 발급날짜와의 차이 (년) | 고용년도(Year_employed) - 발급년도(begin_year)
+diff_employed_begin_month | 고용 후 발급날짜와의 차이 (월) | 고용월(Month_employed) - 발급월(begin_month)
+family_w/o_chide_size | 자녀 외 부양 가족 수 | 가족규모(family_size) - 자녀수(child_num)
 income_family_ratio | 부양가족 당 수입 비율 | 총 수입(total_income) / 가족규모(family_size)
 Unique_ID | 고유번호 | "나이_자녀수_연간수입_차소유_자녀수_학벌_가족규모_성별_총수입_결혼여부_주거형태_나이_고용 이후 날짜"
-
-
 
 
 # 모델링
@@ -111,17 +117,24 @@ Catboost| 0.5460| 0.8115 | 0.7915
 
 **이유**: 손실함수가 가장 낮으며 훈련용과 검증용 데이터에서 ROC-AUC Curve 수치가 가장 높다.
 
-# 결론
+# 결과
+- 데이콘 제출 결과: 696 / 785
 
+## 원인:
+- 은행 데이터 도메인 지식 부족
+- 하이퍼파라미터 튜닝시 neg-logloss대신 AUC-ROC사용 - 지표숙지 미숙
+
+## 개선점:
+- 다양한 버전의 데이터 가공을 통해 실험
+- 하이퍼파라미터 이전에 기본적으로 각 모델을 돌린 후 시행 (가끔은 Default가 성능좋음)
+- Stacking 외에도 Voting, Blending 앙상블 모델을 통해 실험
+- 앙상블기법의 모델을 시각화 할 수 있는 방법 찾기 (PDP, Shap 등)
 
 ## 어려웠던 점
 
 - 타겟값인 Credit이 3개의 클래스로 나뉘어져 있으며 불균형하게 분포되어 예측값이 한쪽으로 치우치즌 경향이 있었다.
-
-## 추가적으로 해볼만한 것들...
-
-- 다양한 특성공학 방식을 통해 성능실험을 수행하여 시간적으로 많이 부족하였다. 이를 극복하기 위해서는, 하이퍼파라미터 튜닝없이 기본적으로 돌린 후 튜닝을 진행해야겠다.
-- 스태킹앙상블 이외의 보팅과 블랜딩 등 다른 앙상블 모델을 통해 실험해봐야겠다.
+- 스태킹앙상블 모델의 결과를 시각화하여 특성의 중요도를 파악하기 어려웠다.
+- 다양한 특성공학 방식을 통해 성능실험을 수행하여 시간적으로 많이 부족하였다. 
 
 
 
