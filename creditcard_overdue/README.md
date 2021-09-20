@@ -19,15 +19,17 @@
 
 
 # 데이터
-데이콘에서 개최한 공모전의 데이터를 활용하였습니다.
+데이콘에서 개최한 공모전의 데이터를 활용하였습니다. 
 
-[신용카드 사용자 연체 예측 AI 경진대회](https://dacon.io/competitions/official/235713/overview/description)
+출처: [신용카드 사용자 연체 예측 AI 경진대회](https://dacon.io/competitions/official/235713/overview/description)
 
-19개의 특성과 타겟값(신용도)
+## 데이터 크기
 
-훈련용 데이터 (Train): 26,475개 (3.3MB)
+* 19개의 특성과 타겟값(신용도)
 
-테스트용 데이터 (Test): 10,000개 (1.2MB)
+* 훈련용 데이터 (Train): 26,475개 (3.3MB)
+
+* 테스트용 데이터 (Test): 10,000개 (1.2MB)
 
 ## 데이터 설명
 
