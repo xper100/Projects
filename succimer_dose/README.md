@@ -45,7 +45,7 @@
 - 하지만, 2주차 이후부터 여자아이들의 혈중 납 농도가 남자아이보다 낮은 상태로 유지
 
 
-# 5. 모델링
+## 4.2 모델링
 
 ### 모델들
 
@@ -56,5 +56,152 @@
 ### 혼합모델
 ![image](https://user-images.githubusercontent.com/53207478/134144816-a185759a-86d9-4888-8b50-cfdcd430b363.png)
 
+* P값은 Placebo일때 0, 그렇지않으면 1
+* D값은 소량의 Succimer일떄 0, 다량일 때 
 
-# 6. 결론
+공분산 모델은 크게 3개이며 모델마다 에러의 분산을 기초로 두가지 다른 가설을 두고 실험을 진행했다.
+
+진행한 모델로는,
+공분산 모델은 크게 3개이며 모델마다 에러의 분산을 기초로 두가지 다른 가설을 두고 실험을 진행했다.
+- 독립적, 에러의 분산이 시간에 따라 변화하지 않음
+- 독립적, 에러의 분산이 시간에 따라 변화
+- AR(1) 상관구조, 에러의 분산이 시간에 따라 변화하지 않음
+- AR(1) 상관구조, 에러의 분산이 시간에 따라 변화
+- 구조화되지 않음, 에러의 분산이 시간에 따라 변화하지 않음
+- 구조화되지 않음, 에러의 분산이 시간에 따라 변화
+
+성능 지표로는 AIC와 BIC를 사용하였다.
+
+### 모델 비교분석 (AIC, BIC)
+
+| 모델 | AIC | BIC
+|---|---|---|
+| **독립적, 에러의 분산이 시간에 따라 변화하지 않음** | **3079.09** | **3198.518**
+| 독립적, 에러의 분산이 시간에 따라 변화 | 3082.369 | 3218.859
+| AR(1) 상관구조, 에러의 분산이 시간에 따라 변화하지 않음 | 3080.83|  3204.524
+| AR(1) 상관구조, 에러의 분산이 시간에 따라 변화 | 3084.259 | 3225.014
+| 구조화되지 않음, 에러의 분산이 시간에 따라 변화하지 않음 | 3088.428 | 3250.509
+| 구조화되지 않음, 에러의 분산이 시간에 따라 변화 | 3092.238 | 3271.381
+
+최종모델로는 AIC와 BIC 모두 가장 낮은 **독립적이면서 에러의 분산이 시간에 따라 변화하지 않는 모델**을 선정하였다.
+
+
+### 최종모델을 통한 추가분석
+
+검정해야할 가설은 총 4가지이다.
+1) 나이와 성별이 모델에 영향을 주는가?
+2) 에러(Error)가 정규분포를 띄고 있나?
+3) 잔차(Residual)은 일정한가?
+4) 확률효과(Random effect)가 일정한 잔차를 가진 정규분포형태를 띄고 있나?
+
+
+#### 나이와 성별에 대한 영향력은?
+
+이를 답하기 위해선 2가지 가설검정을 시행했다. 각 가설검정에 쓰인 모델은 1)최종모델에서 나이(age)에 해당하는 파라미터를 제거한 모델과 2)최종모델에서 성별(gender)를 제거한 모델을 활용하여 ANOVA 테스트를 진행하였다. 
+
+![image](https://user-images.githubusercontent.com/53207478/134170962-b4f2d907-012c-4062-baeb-48b01e9120aa.png)
+
+유의수준을 0.05로 가정하여, 성별은 모델성능에 영향을 주지 않는 반면에 나이는 영향을 준다는 결론은 내릴 수 있다.
+
+<mark>이를 토대로 성별과 관련된 파라미터는 모두 제거하여 이후의 가설검정을 진행하였다.</mark>
+
+
+#### 세 그룹의 평균 혈중 납 농도는 모두 같은 추세를 나타낼까?
+
+치료법이 다른 3가지의 그룹간의 차이를 알아보기 위해 성별(gender) 파라미터를 제거한 모델의 Wald test와 F-test를 적용하였다.
+
+두 가설검정의 p-값이 모두 0.05(유의수준)보다 크게 나타났으므로, 귀무가설을 거절할 증거가 없다는 결론이 나왔다. 즉, "3그룹의 평균 혈중 농도 값은 같다"라고 결론을 지을 수 있다. 
+
+**Table 3: 검정 테스트(Wald-test, F-test)**
+| 검정 테스트명 | 값 | p값
+|---|---|---|
+| Wald test | 10.1547 | 0.2543
+|F test | 1.2693 | 0.2571
+
+
+**Table 4: 계수 예측값**
+| η hat | 변수명 | p값
+|---|---|---|
+| η0 | Intercept | 25.1577
+| η1 | Week | -0.4247
+| η2 | Age | 4.2225
+| η3 | Week and age | 0.2304
+| η8 | P | -0.3983
+| η9 | Week and P | -0.6016
+| η10 | Age and P | 1.0316
+| η11 | Week, age, and P | 0.0793
+| η16 | P and D | 0.3014
+| η17 | Week, P, and D | -0.0684
+| η18 | Age, P, and D | -0.9555
+| η19 | Week, age, P, and D | -0.1644
+
+**Table 5: 파라미터의 계수 예측값**
+| 변수명 | Placebo | 소량의 Succimer | 대량의 Succimer |
+|---|---|---|---|
+| Intercept | η0 | η0 + η8 | η0 + η8 + η16
+| Week | η1 | η1 + η9 | η1 + η9 + η17
+| Age | η2 | η2 + η10 | η2 + +η10 + +η18
+| Interaction between <br>Week and Age | η3 | η3 + +η11 | η3 + +η11 + +η19
+
+
+아래의 그래프는 6가지의 모든 그룹의 평균 혈중 납 농도를 시간에 따라 나타내어준다.
+
+4가지의 특징이 있는데, 
+1) "24개월 초과인 아이들은 24개월 이하인 아이들보다 모든 그룹군에서 가장 높은 의학적 효과를 보았다"고 보여진다. 
+2) 대량의 succimer를 투약한 24개월 초과의 그룹은 다른 그룹의 24개월 아이들 보다 더 많은 납을 배출시켰다. 
+3) Placebo 그룹군이 가장 낮은 양의 납을 배출하였으며, Succimer를 투약한 그룹은 같은 효과를 보이고 있다.
+4) Placebo 그룹의 24개월 이하인 아이들은 4주차 이후부터 대량의 succimer를 투약한 24개월 초과 그룹군 보다 납 배출량이 적어졌다.  
+
+![image](https://user-images.githubusercontent.com/53207478/134188161-8f372a66-3f9e-49ff-a711-35b5b8de0ddd.png)
+
+
+#### 최종모델 (성별을 제외한)의 가설검정 진단
+
+먼저, 성별에 대한 가설감정 진단을 시행하였다. 이전에 성별이 모델에 영향을 주지 않아 제거를 했지만 최종모델은 성별을 포함하고 있기때문에 가설검정 진단이 필요하여 진행하였다. 
+
+일반적으로, 남자 아이그룹의 에러의 변동성이 여자 아이그룹보다는 크게 보이는 반면에 두 그룹의 정규성은 만족하고 있다. 즉, "독립적이며 성별에 상관없이 에러가 같은 모델"의 가설이 위반됬을 가능성이 있다.
+
+![image](https://user-images.githubusercontent.com/53207478/134193875-85cfb8a7-0062-4383-ba2a-d91d1a7d1adb.png)
+
+![image](https://user-images.githubusercontent.com/53207478/134190938-86b1d75a-eb83-402c-be0c-c1e9c0361143.png)
+
+In addition to gender, the model assumptions across treatments can be evaluated in figure 8, figure 9, and
+figure 10. Overall, the error variability in low dose of succimer is greater than the other two groups, while placebo
+and high dose of succimer have similar variability. Normality for all treatment groups is satisfied. In other words,
+the error variance assumption, constancy of error variance, might be violated. For random effects, diagnostics may
+not be useful due to unbalanced dataset, which causes misinterpretation.
+
+성별과 마찬가지로, 3가지 진료법을 나누어서 가설검정 진단을 진행하였다. 전체적으로, "소량의 Succimer"를 주입한 그룹의 에러의 변동성이 타 그룹보다는 컸지만, placebo와 "대량의 succimer"를 주입한 그룹은 비슷한 변동성을 가지고 있다. 모든 그룹의 정규성은 만족하였다.
+
+즉, 에러와 관련된 가설(에러 분산은 일정하다)은 위반됬을 수도 있다. 
+
+확률효과(Random Effect)는 불균형 데이터로 인해서 검증이 유용하지 않을 수 있어서 시행하지 않았다.
+
+![image](https://user-images.githubusercontent.com/53207478/134194421-df4e0b2b-c28d-4916-b9ef-c99716616418.png)
+
+![image](https://user-images.githubusercontent.com/53207478/134194301-b1182081-1884-424a-b106-1fb7d423adb8.png)
+
+
+
+# 5. 결론
+
+프로젝트를 통해서 얻고자 했던 질문들의 답 1) 치료법에 따라 어떻게 효과가 달라지는가? 그리고 2) 어떤 치료법이 가장 효과가 좋은가?에 대한 답은 다음과 같다.
+
+* 최종모델: **독립적이면서 에러의 분산이 시간에 따라 변화하지 않는 모델**
+* 나이는 모델에 영향을 주지만 성별은 영향력이 없어서 제거
+* 최종모델에서 성별과 관련된 효과를 제거하여 최종모델 수정
+* Wald-test와 F-test를 통해 모든 진료법의 평균 혈중 납 농도 추세가 같다고 판단 (시간이 흐름에 따라 농도가 낮아짐)
+* Succimer의 투입량이 많을 수록 효과가 높음
+* 24개월 이하인 아이들이 납 배출능력이 높게 나타남 (나이가 어릴때 진료하는 것이 중요)
+
+**즉, 혈중 납 농도는 시간이 지날수록 낮아지지만 Succimer를 대량으로 투입하는 것이 가장 효과가 좋으며, 성별과는 상관없이 나이가 어릴 수록 그 효과가 증대해지는 것을 확인하였다.**
+
+# 6. Appendix
+
+![image](https://user-images.githubusercontent.com/53207478/134200114-6b7c06bd-eac1-446c-94c7-732c5d45108b.png)
+
+![image](https://user-images.githubusercontent.com/53207478/134200208-9c617f26-5a45-4d2c-9500-c32ad0ec4762.png)
+
+![image](https://user-images.githubusercontent.com/53207478/134200297-c35446bf-af6b-4943-868a-87cb40c46de8.png)
+
+![image](https://user-images.githubusercontent.com/53207478/134200364-b2a7fcb2-1de0-45fe-94ec-7a583742b44e.png)
