@@ -21,8 +21,8 @@
 
 |프로젝트명|협업기관|특이사항|링크|
 |:---|:---|:---|:---|
-| Succimer 약물의 효과 입증 | North Carolina State University | Longitudinal & Multivariate Statistics(Rstudio) | [블로그](https://xper100.tistory.com/59)
-|  | Kaggle (North Carolina State University) | Bayesian Statistics(Rstudio) | [블로그](https://xper100.tistory.com/59)
+| ~~Succimer 약물의 효과 입증 | North Carolina State University | Longitudinal & Multivariate Statistics(Rstudio) | [블로그](https://xper100.tistory.com/59)~~
+| ~~ | Kaggle (North Carolina State University) | Bayesian Statistics(Rstudio) | [블로그](https://xper100.tistory.com/59)~~
 
 ## 웹 어플리케이션
 |프로젝트명|협업기관|특이사항|링크|
