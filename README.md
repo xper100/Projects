@@ -27,7 +27,7 @@
 ## 웹 어플리케이션
 프로젝트명|협업기관|특이사항|프로그래밍언어|링크|
 |:---|:---|:---|:---|:---|
-| [미완성] 주변에 괜찮은 병원을 찾아줘!  | 웹 어플리케이션(코드스테이츠) | Flask, Postgre SQL을 통한 웹베포 | Python | [Github](https://github.com/xper100/search_hospital)
+| [미완성] 주변에 괜찮은 병원을 찾아줘!  | 웹 어플리케이션(코드스테이츠) | Flask 웹베포, Postgre SQL 데이터적재| Python | [Github](https://github.com/xper100/search_hospital)
 
 
 
