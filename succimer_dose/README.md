@@ -165,11 +165,7 @@
 
 ![image](https://user-images.githubusercontent.com/53207478/134190938-86b1d75a-eb83-402c-be0c-c1e9c0361143.png)
 
-In addition to gender, the model assumptions across treatments can be evaluated in figure 8, figure 9, and
-figure 10. Overall, the error variability in low dose of succimer is greater than the other two groups, while placebo
-and high dose of succimer have similar variability. Normality for all treatment groups is satisfied. In other words,
-the error variance assumption, constancy of error variance, might be violated. For random effects, diagnostics may
-not be useful due to unbalanced dataset, which causes misinterpretation.
+
 
 성별과 마찬가지로, 3가지 진료법을 나누어서 가설검정 진단을 진행하였다. 전체적으로, "소량의 Succimer"를 주입한 그룹의 에러의 변동성이 타 그룹보다는 컸지만, placebo와 "대량의 succimer"를 주입한 그룹은 비슷한 변동성을 가지고 있다. 모든 그룹의 정규성은 만족하였다.
 
